@@ -17,6 +17,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,6 +38,8 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.PluginRegistry;
 import io.flutter.plugin.platform.PlatformView;
+
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -352,6 +355,22 @@ final class GoogleMapController
           result.success(mapStyleResult);
           break;
         }
+      case "map#takeSnapshot":
+      {
+        final MethodChannel.Result snapshotResult = result;
+        GoogleMap.SnapshotReadyCallback callback = new GoogleMap.SnapshotReadyCallback(){
+          @Override
+          public void onSnapshotReady(Bitmap bitmap) {
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+            bitmap.recycle();
+            snapshotResult.success(byteArray);
+          }
+        };
+        googleMap.snapshot(callback);
+        break;
+      }
       default:
         result.notImplemented();
     }

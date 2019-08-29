@@ -208,4 +208,10 @@ class GoogleMapController {
 
     return LatLngBounds(northeast: northeast, southwest: southwest);
   }
+
+  Future<Uint8List> snapshot() async {
+    final Uint8List successAndError =
+        await channel.invokeMethod<Uint8List>('map#takeSnapshot');
+    return successAndError;
+  }
 }
