@@ -240,7 +240,18 @@ static double ToDouble(NSNumber* data) { return [FLTGoogleMapJsonConversions toD
     } else {
       result(@[ @(NO), error ]);
     }
-  } else {
+  }
+  else if ([call.method isEqualToString:@"map#takeSnapshot"]) {
+      // Take a snapshot of the map.
+      UIGraphicsBeginImageContextWithOptions(_mapView.bounds.size, YES, 0);
+      [_mapView drawViewHierarchyInRect:_mapView.bounds afterScreenUpdates:YES];
+      UIImage *mapSnapShot = UIGraphicsGetImageFromCurrentImageContext();
+      UIGraphicsEndImageContext();
+      NSData *data = UIImagePNGRepresentation(mapSnapShot);
+      FlutterStandardTypedData * fdata = [FlutterStandardTypedData typedDataWithBytes:data];
+      result(fdata);
+  }
+  else {
     result(FlutterMethodNotImplemented);
   }
 }
