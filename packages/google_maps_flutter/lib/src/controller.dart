@@ -209,6 +209,12 @@ class GoogleMapController {
     return LatLngBounds(northeast: northeast, southwest: southwest);
   }
 
+  Future<Uint8List> snapshot() async {
+    final Uint8List successAndError =
+        await channel.invokeMethod<Uint8List>('map#takeSnapshot');
+    return successAndError;
+  }
+
   /// Return [ScreenCoordinate] of the [LatLng] in the current map view.
   ///
   /// A projection is used to translate between on screen location and geographic coordinates.
