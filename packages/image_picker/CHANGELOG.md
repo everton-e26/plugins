@@ -1,3 +1,15 @@
+## 0.6.1+11
+
+* Stability and Maintainability: update documentations, add unit tests.
+
+## 0.6.1+10
+
+* iOS: Fix image orientation problems when scaling images.
+
+## 0.6.1+9
+
+* Remove AndroidX warning.
+
 ## 0.6.1+8
 
 * Fix iOS build and analyzer warnings.
