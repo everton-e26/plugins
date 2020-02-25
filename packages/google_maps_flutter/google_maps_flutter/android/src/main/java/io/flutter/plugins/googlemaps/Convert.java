@@ -223,11 +223,7 @@ class Convert {
       return null;
     }
     final List<?> data = toList(o);
-    //TODO fix the issue at
-    //https://github.com/flutter/flutter/issues/25298
-
-    //return new LatLngBounds(toLatLng(data.get(0)), toLatLng(data.get(1)));
-    return LatLngBounds.builder().include(toLatLng(data.get(0))).include(toLatLng(data.get(1))).build();
+    return new LatLngBounds(toLatLng(data.get(0)), toLatLng(data.get(1)));
   }
 
   private static List<?> toList(Object o) {
