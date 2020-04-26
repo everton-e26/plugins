@@ -323,6 +323,10 @@ class Convert {
     if (myLocationEnabled != null) {
       sink.setMyLocationEnabled(toBoolean(myLocationEnabled));
     }
+    final Object zoomControlsEnabled = data.get("zoomControlsEnabled");
+    if (zoomControlsEnabled != null) {
+      sink.setZoomControlsEnabled(toBoolean(zoomControlsEnabled));
+    }
     final Object myLocationButtonEnabled = data.get("myLocationButtonEnabled");
     if (myLocationButtonEnabled != null) {
       sink.setMyLocationButtonEnabled(toBoolean(myLocationButtonEnabled));
